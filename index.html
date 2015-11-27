@@ -18,10 +18,11 @@
 var game = new Phaser.Game(1024, 700, Phaser.AUTO, '', {preload:preload, create:create, update:update});
 
 
-
+var filas =20;
+var columnas = 20;
 var alien;
 var desierto;
-
+var matrizDesierto = [7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8];
 
 function preload(){
 game.load.image('cactus', 'assets/cactus.png');
@@ -32,20 +33,28 @@ game.load.spritesheet('desierto', 'assets/desierto.png',35,35);
 
 //game.load.image('hueco', 'assets/hueco.png');
 game.load.image('nave', 'assets/nave.png');
-game.load.spritesheet('alien', 'assets/alien.png',25,35,9 );
+game.load.spritesheet('alien', 'assets/alien.png',25.5,35,9 );
 
 
 }
 
 function create(){
+//
+desierto = game.add.group();
 
-desierto = game.add.sprite(0,0,'desierto');
-alien = game.add.sprite(0,0,'alien');
+for(var j = 0;j<columnas;j++){
+var casilla = desierto.create(j*35,0, 'desierto',matrizDesierto[j] );
+
+
+
+}
+
+//alien = game.add.sprite(0,0,'alien');
 //alien.frame=4;
 
 
-alien.animations.add('este', [0,1], 5, true);
-alien.animations.add('oeste', [3,4], 5, true);
+//alien.animations.add('este', [0,1], 5, true);
+//alien.animations.add('oeste', [3,4], 5, true);
 
 
 // a5rojo : añado y escalo los cactus de la gui que van al lado derecho
@@ -63,7 +72,7 @@ cactusGUI3.scale.setTo(0.5,0.5);
 function update(){
 
 //alien.frame = 2;
-alien.animations.play('este');
+//alien.animations.play('este');
 //desierto.frame = 3;
 
 }
