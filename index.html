@@ -15,8 +15,36 @@
 <body>
 <script type="text/javascript">
 
-var game = new Phaser.Game(1024, 1024, Phaser.AUTO, '', {preload:preload, create:create, update:update});
+var game = new Phaser.Game(1024, 700, Phaser.AUTO, '', {preload:preload, create:create, update:update});
 
+
+function preload(){
+game.load.image('cactus', 'assets/cactus.png');
+game.load.image('cactus', 'assets/cactusInv.png');
+game.load.image('baldosa', 'assets/baldosa.png');
+
+//game.load.image('pared', 'assets/pared.png');
+
+//game.load.image('hueco', 'assets/hueco.png');
+game.load.image('nave', 'assets/nave.png');
+game.load.spritesheet('alien', 'assets/alien.png',70,96 );
+
+
+
+}
+
+function create(){
+
+
+var alien = game.add.sprite(0,0,'alien');
+//var nave = game.add.sprite(0,0, 'nave');
+//nave.scale.setTo(0.3, 0.3);
+}
+
+function update(){
+
+
+}
 
 </script>
 </body>
