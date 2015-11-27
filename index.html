@@ -24,7 +24,13 @@ var columnas = 20;
 var alien;
 var desierto;
 var matrizDesierto = 	[7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8,
-			 1,11,4,8,14,7,6,8,14,1,10,9,10,9,1,7,4,9
+			 1,11,4,8,14,7,6,8,14,1,10,9,10,9,10,9,1,7,4,9,
+			 10,2,9,10,9,3,8,10,9,3,2,2,2,2,8,7,5,1,1,14,
+			 7,8,7,8,7,9,10,2,8,10,2,2,2,12,1,1,10,9,1,1,
+			 13,10,9,1,1,7,8,7,9,7,4,8,7,8,1,10,8,7,9,1,
+			 7,2,2,9,1,1,10,0,4,9,1,13,1,10,9,7,9,1,7,9,
+			 1,7,8,7,9,13,7,9,1,7,9,7,9,7,8,10,8,10,9,14,
+			 1,1,10,5,7,4,6,12,1,3,2,9,7,9,10,12,1,7,2,5	
 ];
 
 function preload(){
@@ -49,7 +55,7 @@ game.load.spritesheet('desierto', 'assets/desierto.png', 35, 35);
 function create(){
 //
 desierto = game.add.group();
-for(var i=0; i<2;i++){
+for(var i=0; i<filas;i++){
 for(var j = 0;j<columnas;j++){
 var casilla = desierto.create(35+j*35,35+i*35, 'desierto',matrizDesierto[j+i*columnas] );
 
