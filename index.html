@@ -23,7 +23,9 @@ var filas =20;
 var columnas = 20;
 var alien;
 var desierto;
-var matrizDesierto = [7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8];
+var matrizDesierto = 	[7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8,
+			 1,11,4,8,14,7,6,8,14,1,10,9,10,9,1,7,4,9
+];
 
 function preload(){
 
@@ -47,14 +49,12 @@ game.load.spritesheet('desierto', 'assets/desierto.png', 35, 35);
 function create(){
 //
 desierto = game.add.group();
-
+for(var i=0; i<2;i++){
 for(var j = 0;j<columnas;j++){
-var casilla = desierto.create(35+j*35,0, 'desierto',matrizDesierto[j] );
-
-
+var casilla = desierto.create(35+j*35,35+i*35, 'desierto',matrizDesierto[j+i*columnas] );
 
 }
-
+}
 
 var alien = game.add.sprite(0,0,'alien');
 
