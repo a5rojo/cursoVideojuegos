@@ -37,8 +37,14 @@ function create(){
 
 
 var alien = game.add.sprite(0,0,'alien');
-var cactusGUI = game.add.sprite(870,0,'cactus');
-cactusGUI.scale.setTo(0.5,0.5);
+
+// a5rojo : añado y escalo los cactus de la gui que van al lado derecho
+var cactusGUI1 = game.add.sprite(940,0,'cactus');
+cactusGUI1.scale.setTo(0.5,0.5);
+var cactusGUI2 = game.add.sprite(940,100,'cactus');
+cactusGUI2.scale.setTo(0.5,0.5);
+var cactusGUI3 = game.add.sprite(940,200,'cactus');
+cactusGUI3.scale.setTo(0.5,0.5);
 //var nave = game.add.sprite(0,0, 'nave');
 //nave.scale.setTo(0.3, 0.3);
 }
