@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title> </title>
+
+<script type="text/javascript" src="js/phaser.min.js"></script>
+
+<style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+
+var game = new Phaser.Game(1024, 700, Phaser.AUTO, '', {preload:preload, create:create, update:update});
+
+
+
+
+var alien;
+var desierto;
+
+
+function preload(){
+
+// A5rojo : cargo los assets de la gui de la derecha
+game.load.image('bordeArriba','assets/arriba.png');
+game.load.image('bordeAbajo','assets/abajo.png');
+game.load.image('bordeDerecho','assets/bordede.png');
+game.load.image('bordeIzquierdo','assets/bordeiz.png');
+game.load.image('sinbordes','assets/sinborde.png');
+game.load.image('cactus', 'assets/cactus.png');
+game.load.image('cactus', 'assets/cactusInv.png');
+
+//game.load.image('baldosa', 'assets/baldosa.png');
+game.load.spritesheet('desierto', 'assets/desierto.png',35,35);
+//game.load.image('pared', 'assets/pared.png');
+
+
+game.load.image('nave', 'assets/nave.png');
+
+game.load.spritesheet('alien', 'assets/alien.png',25,35,9 );
+
+
+}
+
+function create(){
+
+
+var alien = game.add.sprite(0,0,'alien');
+
+// a5rojo : añado y escalo la gui derecha
+
+/*
+var derechaGUI1 = game.add.sprite(960,0,'bordeArriba');
+derechaGUI1.scale.setTo(0.5,0.5);
+
+var derechaGUI2 = game.add.sprite(960,10,'bordeDerecho');
+derechaGUI2.scale.setTo(0.5,0.5);
+
+var derechaGUI3 = game.add.sprite(780,10,'bordeIzquierdo');
+derechaGUI3.scale.setTo(0.5,0.5);
+*/
+var derechaGUI1 = game.add.sprite(960,0,'bordeArriba');
+derechaGUI1.scale.setTo(0.5,0.5);
+
+var derechaGUI11 = game.add.sprite(900,0,'bordeArriba');
+derechaGUI11.scale.setTo(0.5,0.5);
+
+var derechaGUI111 = game.add.sprite(840,0,'bordeArriba');
+derechaGUI111.scale.setTo(0.5,0.5);
+
+var derechaGUI1111 = game.add.sprite(780,0,'bordeArriba');
+derechaGUI1111.scale.setTo(0.5,0.5);
+
+for (var i = 0; i < 11; i++)
+{
+	var derechaGUI21 = game.add.sprite(960,i*64,'bordeDerecho');
+	derechaGUI21.scale.setTo(0.5,0.5);
+
+	var derechaGUI41 = game.add.sprite(900,i*64,'sinbordes');
+	derechaGUI41.scale.setTo(0.5,0.5);
+	var derechaGUI42 = game.add.sprite(840,i*64,'sinbordes');
+	derechaGUI42.scale.setTo(0.5,0.5);
+
+	var derechaGUI6 = game.add.sprite(780,i*64,'bordeIzquierdo');
+	derechaGUI6.scale.setTo(0.5,0.5);
+
+}
+
+desierto = game.add.sprite(0,0,'desierto');
+alien = game.add.sprite(0,0,'alien');
+//alien.frame=4;
+
+
+
+
+
+// a5rojo : añado y escalo los cactus de la gui que van al lado derecho
+var cactusGUI1 = game.add.sprite(930,10,'cactus');
+cactusGUI1.scale.setTo(0.5,0.5);
+
+var cactusGUI2 = game.add.sprite(930,100,'cactus');
+cactusGUI2.scale.setTo(0.5,0.5);
+
+var cactusGUI3 = game.add.sprite(930,200,'cactus');
+cactusGUI3.scale.setTo(0.5,0.5);
+
+
+}
+
+function update(){
+
+
+//alien.frame = 2;
+alien.animations.play('este');
+//desierto.frame = 3;
+
+
+}
+
+</script>
+</body>
+</html>
