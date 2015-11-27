@@ -18,17 +18,21 @@
 var game = new Phaser.Game(1024, 700, Phaser.AUTO, '', {preload:preload, create:create, update:update});
 
 
+
+var alien;
+
+
+
 function preload(){
 game.load.image('cactus', 'assets/cactus.png');
 game.load.image('cactus', 'assets/cactusInv.png');
-game.load.image('baldosa', 'assets/baldosa.png');
+//game.load.image('baldosa', 'assets/baldosa.png');
 
 //game.load.image('pared', 'assets/pared.png');
 
 //game.load.image('hueco', 'assets/hueco.png');
 game.load.image('nave', 'assets/nave.png');
-game.load.spritesheet('alien', 'assets/alien.png',70,96 );
-
+game.load.spritesheet('alien', 'assets/alien.png',70,96,9 );
 
 
 }
@@ -36,14 +40,20 @@ game.load.spritesheet('alien', 'assets/alien.png',70,96 );
 function create(){
 
 
-var alien = game.add.sprite(0,0,'alien');
+alien = game.add.sprite(0,0,'alien');
+alien.frame=4;
+
+
+alien.animations.add('este', [0,1], 5, true);
+alien.animations.add('oeste', [3,4], 5, true);
+
 //var nave = game.add.sprite(0,0, 'nave');
 //nave.scale.setTo(0.3, 0.3);
 }
 
 function update(){
-
-
+//alien.frame = 2;
+alien.animations.play('este');
 }
 
 </script>
