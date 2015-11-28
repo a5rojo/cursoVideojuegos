@@ -54,7 +54,43 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 			}
 
 			listaAbierta.splice(indMasBajo,1);
-			listaCerrada.push
+			listaCerrada.push(act);
+			var vecinos = astar.vecinos(act, matrizDesierto, matrizCactus);
+
+			for(var i = 0; i<vecinos.length;i++){
+				var vecino = vecinos[i];
+				if(listaCerrada.indexOf(vecino) != -1){
+					continue;
+				}
+			
+
+
+				var gScore = act.g + 1;
+				var gMejor = false;
+
+				
+				if(listaAbierta.indexOf(vecino)== -1 ){
+					gMejor = true;
+					vecino.h = astar.heuristica(vecino.pos, fin.pos);
+					listaAbierta.push(vecino);
+
+
+				}
+else if (gScore < vecino.g){
+gMejor = true;
+}
+
+
+if(gMejor){
+
+vecino.parent = act;
+vecino.g = gScore;
+vecino.f = vecino.g + vecino.h;
+vecino.debug = "F: " + vecino.f + "<br />G: " + vecino.g + "<br />H: " + vecino.h;
+
+
+}
+}
 
 
 
@@ -62,18 +98,25 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 
 
 
-		}
+
+}
+
+return [];
+
+
+
+
+},
 
 
 
 
 
-
-	}
-
-
-
-
+heuristica: function(pos0, pos1){
+var d1 = Math.abs(pos1.x - pos0.x);
+var d2 = Math.abs(pos1.y - pos0.y);
+return d1+d2;
+},
 
 
 }
