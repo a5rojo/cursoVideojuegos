@@ -67,6 +67,8 @@ grid[z1][z2] = {};
 var listaCactus=[];
 var macetas;
 
+
+
 // A5rojo : matriz con las posiciones de los .pngs del laberinto
 var matrizDesierto = 	[7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8,
 			 1,11,4,8,14,7,6,8,14,1,10,9,10,9,10,9,1,7,4,9,
@@ -263,6 +265,8 @@ function updateCounter() {
 
 function update(){
 
+
+
 // A5rojo : actualizamos el tiempo
 scoreText.text = 'score time : ' + total;
 //alien.frame = 2;
@@ -274,9 +278,39 @@ alienbailon.animations.play('baile');
 function ponerCactus(sprite, event){
 	if (listaCactus.length < 3)
 	{
+				if (listaCactus.indexOf(sprite)==-1) {
+
 		sprite.animations.play('cactus');
+		listaCactus.push(sprite);
+ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
+	}
+
+	}
+	else{
+		if (listaCactus.indexOf(sprite)==-1) {
+		primera = listaCactus.shift();
+		primera.animations.stop();
+		primera.frame = 0;
+		sprite.animations.play('cactus');
+		listaCactus.push(sprite);
+		var puntoX = sprite.position.x;
+		var puntoY = sprite.position.y;
+		puntoX = ((puntoX-35)/35);
+		puntoY = (puntoY-35)/35;
+		matrizCactus[puntoY][puntoX] = 2;
+		puntoX = primera.position.x;
+		puntoY = primera.position.y;
+		puntoX = ((puntoX-35)/35);
+		puntoY = (puntoY-35)/35;
+		matrizCactus[puntoY][puntoX] = 1;
 
 
+
+
+
+		ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
+
+}
 	}
 
 
