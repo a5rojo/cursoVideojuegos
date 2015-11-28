@@ -246,7 +246,17 @@ cactusGUI2.scale.setTo(0.5,0.5);
 var cactusGUI3 = game.add.sprite(930,200,'cactusGUI');
 cactusGUI3.scale.setTo(0.5,0.5);
 
+
+
 // Para acabar
+
+alien.animations.add('norte', [5,6],5,true);
+
+alien.animations.add('este', [0,1],5,true);
+
+alien.animations.add('sur', [7,8],5,true);
+
+alien.animations.add('oeste', [3,4],5,true);
 
 ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 
@@ -272,26 +282,22 @@ switch(sig){
 case 0:
 game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y-35,30000,velocidadTimer2);
 posRel.y--;
-console.log('norte');
-alien.animations.add('alien', [5,6],5,true);
+alien.animations.play('norte');
 break;
 case 1:
 game.physics.arcade.moveToXY(alien, alien.position.x+35,alien.position.y,30000,velocidadTimer2);
-console.log('este');
-alien.animations.add('alien', [0,1],5,true);
+alien.animations.play('este');
 posRel.x++;
 break;
 case 2:
 game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y+35,30000,velocidadTimer2);
 posRel.y++;
-console.log('sur');
-alien.animations.add('alien', [7,8],5,true);
+alien.animations.play('sur');
 break;
 case 3:
 game.physics.arcade.moveToXY(alien, alien.position.x-35,alien.position.y,30000,velocidadTimer2);
 posRel.x--;
-console.log('oueste');
-alien.animations.add('alien', [3,4],5,true);
+alien.animations.play('oeste');
 break;
 
 
