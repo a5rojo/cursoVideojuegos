@@ -20,6 +20,7 @@ var game = new Phaser.Game(1024, 900, Phaser.AUTO, '', {preload:preload, create:
 var MAX_CACTUS = 3;
 var contadorCactus = 0;
 var timer;
+var timer2;
 var total = 0;
 var scoreText;
 
@@ -64,6 +65,9 @@ grid[z1][z2] = {};
 
 }
 
+var posRel={};
+posRel.x=0;
+posRel.y=0;
 var listaCactus=[];
 var macetas;
 
@@ -140,7 +144,7 @@ game.load.audio('musica', 'assets/sonidos/ost.m4a');
 }
 
 function create(){
-
+game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
  //  A5rojo creamos el timer
@@ -149,7 +153,10 @@ function create(){
  timer.loop(100, updateCounter, this);
  timer.start();
 
+timer2 = game.time.create(false);
 
+timer2.loop(500, moverBicho, this);
+timer2.start();
 // A5rojo : bucle que crea el laberinto 
 desierto = game.add.group();
 macetas = game.add.group();
@@ -181,6 +188,8 @@ musica.play();
 
 
 alien = game.add.sprite(355,35,'alien');
+    game.physics.arcade.enable(alien);
+
 
 // a5rojo : añado y escalo la gui derecha
 for (var i = 0; i < 12; i++)
@@ -229,28 +238,7 @@ cactusGUI3.scale.setTo(0.5,0.5);
 ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 
 
-var px=355;
-var py=35;
-for (var z3=0; z3<ruta.length;z3++){
-switch(ruta[z3]){
-case 0:
-py=py-35;
-break;
-case 1:
-px=px+35;
-break;
-case 2:
-py=py+35;
-break;
-case 3:
-px=px-35;
-break;
 
-}
-game.add.sprite(px,py,'alien');
-
-
-}
 
 for (var z5 = 0; z5 < macetas.children.length; z5++) {
 	macetas.children[z5].frame = 0;
@@ -260,6 +248,46 @@ for (var z5 = 0; z5 < macetas.children.length; z5++) {
 function updateCounter() {
 
     total++;
+
+}
+
+function moverBicho(){
+
+var sig = ruta.shift();
+
+switch(sig){
+case 0:
+game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y-35,3000,500);
+posRel.y--;
+console.log('norte');
+
+break;
+case 1:
+game.physics.arcade.moveToXY(alien, alien.position.x+35,alien.position.y,3000,500);
+console.log('este');
+
+posRel.x++;
+break;
+case 2:
+game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y+35,3000,500);
+posRel.y++;
+console.log('sur');
+
+break;
+case 3:
+game.physics.arcade.moveToXY(alien, alien.position.x-35,alien.position.y,3000,500);
+posRel.x--;
+console.log('oueste');
+
+break;
+
+
+}
+
+
+
+
+
 
 }
 
@@ -273,15 +301,34 @@ scoreText.text = 'score time : ' + total;
 alienbailon.animations.play('baile');
 //desierto.frame = 3;
 
+
+
+
+
+
+
+
+
+
 }
 
 function ponerCactus(sprite, event){
 	if (listaCactus.length < 3)
 	{
-				if (listaCactus.indexOf(sprite)==-1) {
+		if (listaCactus.indexOf(sprite)==-1) {
 
 		sprite.animations.play('cactus');
 		listaCactus.push(sprite);
+		inicio.pos.x+=posRel.y;
+		inicio.pos.y+=posRel.x;
+		posRel.x=0;
+		posRel.y=0;
+
+		var puntoX = sprite.position.x;
+		var puntoY = sprite.position.y;
+		puntoX = ((puntoX-35)/35);
+		puntoY = (puntoY-35)/35;
+		matrizCactus[puntoY][puntoX] = 2;
 ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 	}
 
@@ -305,8 +352,10 @@ ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 		matrizCactus[puntoY][puntoX] = 1;
 
 
-
-
+		inicio.pos.x+=posRel.y;
+		inicio.pos.y+=posRel.x;
+posRel.x=0;
+		posRel.y=0;
 
 		ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 
