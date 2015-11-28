@@ -67,6 +67,7 @@ game.load.image('fin', 'assets/navePiloto.png');
 game.load.spritesheet('alien', 'assets/alien.png',25.5,35,9 );
 game.load.spritesheet('desierto', 'assets/desierto.png', 35, 35);
 
+game.load.audio('musica', 'assets/sonidos/ost.m4a');
 
 }
 
@@ -81,6 +82,9 @@ for(var i=0; i<filas;i++)
 		var casilla = desierto.create(35+j*35,35+i*35, 'desierto',matrizDesierto[j+i*columnas] );
 	}
 }
+
+var musica = game.add.audio('musica');
+musica.play();
 
 
 
