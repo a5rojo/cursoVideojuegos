@@ -62,13 +62,13 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 				if(listaCerrada.indexOf(vecino) != -1){
 					continue;
 				}
-			
+
 
 
 				var gScore = act.g + 1;
 				var gMejor = false;
 
-				
+
 				if(listaAbierta.indexOf(vecino)== -1 ){
 					gMejor = true;
 					vecino.h = astar.heuristica(vecino.pos, fin.pos);
@@ -76,47 +76,169 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 
 
 				}
-else if (gScore < vecino.g){
-gMejor = true;
-}
+				else if (gScore < vecino.g){
+					gMejor = true;
+				}
 
 
-if(gMejor){
+				if(gMejor){
 
-vecino.parent = act;
-vecino.g = gScore;
-vecino.f = vecino.g + vecino.h;
-vecino.debug = "F: " + vecino.f + "<br />G: " + vecino.g + "<br />H: " + vecino.h;
-
-
-}
-}
+					vecino.parent = act;
+					vecino.g = gScore;
+					vecino.f = vecino.g + vecino.h;
+					vecino.debug = "F: " + vecino.f + "<br />G: " + vecino.g + "<br />H: " + vecino.h;
 
 
-
+				}
+			}
 
 
 
 
 
-}
-
-return [];
 
 
 
+		}
 
-},
+		return [];
+
+
+
+
+	},
 
 
 
 
 
 heuristica: function(pos0, pos1){
-var d1 = Math.abs(pos1.x - pos0.x);
-var d2 = Math.abs(pos1.y - pos0.y);
-return d1+d2;
-},
+		    var d1 = Math.abs(pos1.x - pos0.x);
+		    var d2 = Math.abs(pos1.y - pos0.y);
+		    return d1+d2;
+	    },
+
+vecinos: function(grid,nodo, matrizDesierto, matrizCactus){
+		 var ret = [];
+		 var x = nodo.pos.x;
+		 var y = nodo.pos.y;
+
+		 switch(matrizDesierto[x*20+y]){
+			 case 0:
+				 if(matrizCactus[x+1][y]!=2 && x<20)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x-1][y]!=2 && x>0)
+					 ret.push(grid[x-1][y]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+
+				 break;
+			 case 1:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+				 break;
+			 case 2:
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+				 break;
+			 case 3:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+				 break;
+			 case 4:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+
+				 break;
+			 case 5:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+				 break;
+			 case 6:
+
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
 
 
-}
+				 break;
+			 case 7:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+
+				 break;
+			 case 8:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+
+				 break;
+			 case 9:
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+
+				 break;
+			 case 10:
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+
+				 break;
+			 case 11:
+				 if(matrizCactus[x][y+1]!=2)
+					 ret.push(grid[x][y+1]);
+
+				 break;
+			 case 12:
+				 if(matrizCactus[x][y-1]!=2)
+					 ret.push(grid[x][y-1]);
+				 break;
+			 case 13:
+				 if(matrizCactus[x-1][y]!=2)
+					 ret.push(grid[x-1][y]);
+
+				 break;
+			 case 14:
+				 if(matrizCactus[x+1][y]!=2)
+					 ret.push(grid[x+1][y]);
+
+				 break;
+
+
+
+
+		 }
+
+
+
+	 }
+
+
+};
