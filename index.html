@@ -22,7 +22,7 @@
 <div align="center" id = "juegazo">
 <script type="text/javascript">
 
-var game = new Phaser.Game(1024, 900, Phaser.AUTO, 'juegazo', {preload:preload, create:create, update:update});
+var game = new Phaser.Game(1024, 750, Phaser.AUTO, 'juegazo', {preload:preload, create:create, update:update});
 
 var MAX_CACTUS = 3;
 var contadorCactus = 0;
@@ -314,7 +314,7 @@ alienbailon.animations.play('baile');
 
 
 if (inicio.pos.x + posRel.y == fin.pos.x && inicio.pos.y + posRel.x == fin.pos.y) {
-var gameover = game.add.sprite(290,290,'gameover');
+var gameover = game.add.sprite(250,290,'gameover');
 
 
 
