@@ -18,10 +18,14 @@
 var game = new Phaser.Game(1024, 900, Phaser.AUTO, '', {preload:preload, create:create, update:update});
 
 
+var timer;
+var total = 0;
+var scoreText;
 
 var filas =20;
 var columnas = 20;
 var alien;
+var alienbailon;
 var desierto;
 // A5rojo : matriz con las posiciones de los .pngs del laberinto
 var matrizDesierto = 	[7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8,
@@ -64,6 +68,9 @@ game.load.image('salida', 'assets/nave.png');
 game.load.image('fin', 'assets/navePiloto.png');
 //game.load.image('nave', 'assets/nave.png');
 
+
+// A5rojo : cargamos el alien bailon
+game.load.spritesheet( 'alienbailon','assets/BackupOrig/alien.png',70,96 );
 game.load.spritesheet('alien', 'assets/alien.png',25.5,35,9 );
 game.load.spritesheet('desierto', 'assets/desierto.png', 35, 35);
 
@@ -72,6 +79,18 @@ game.load.audio('musica', 'assets/sonidos/ost.m4a');
 }
 
 function create(){
+
+
+
+ //  A5rojo creamos el timer
+ timer = game.time.create(false);
+
+ // a5rojo: que se actualice cada segundo que pase
+ timer.loop(1000, updateCounter, this);
+ timer.start();
+
+
+
 
 // A5rojo : bucle que crea el laberinto 
 desierto = game.add.group();
@@ -83,12 +102,13 @@ for(var i=0; i<filas;i++)
 	}
 }
 
+
+// A5rojo : declaramos la musica y la reproduccimos
 var musica = game.add.audio('musica');
 musica.play();
 
 
-
-var alien = game.add.sprite(355,35,'alien');
+alien = game.add.sprite(355,35,'alien');
 
 // a5rojo : añado y escalo la gui derecha
 for (var i = 0; i < 12; i++)
@@ -107,14 +127,22 @@ for (var i = 0; i < 12; i++)
 }
 
 
+
+
+
 var salida = game.add.sprite(385,710,'salida');
-//alien = game.add.sprite(0,0,'alien');
-//alien.frame=4;
 
 
-//alien.animations.add('este', [0,1], 5, true);
-//alien.animations.add('oeste', [3,4], 5, true);
 
+
+
+// A5rojo : ponemos el score en la gui de la derecha 
+scoreText = game.add.text(800, 690, 'score time : ' + total, { fontSize: '32px', fill: '#000' });
+
+// A5rojo : ponemos el alien bailon
+alienbailon = game.add.sprite(830,400,'alienbailon');
+alienbailon.scale.setTo(2,2);
+alienbailon.animations.add('baile', [2,7,2,8], 5, true);
 
 // a5rojo : añado y escalo los cactus de la gui que van al lado derecho
 var cactusGUI1 = game.add.sprite(930,10,'cactusGUI');
@@ -128,10 +156,19 @@ cactusGUI3.scale.setTo(0.5,0.5);
 
 }
 
+function updateCounter() {
+
+    total++;
+
+}
+
 function update(){
 
+// A5rojo : actualizamos el tiempo
+scoreText.text = 'score time : ' + total;
+
 //alien.frame = 2;
-//alien.animations.play('este');
+alienbailon.animations.play('baile');
 //desierto.frame = 3;
 
 }
