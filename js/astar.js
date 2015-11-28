@@ -7,6 +7,8 @@ init: function(matrizDesierto, matrizCactus, grid){
 			      grid[x][y].h = 0;
 			      grid[x][y].debug = "";
 			      grid[x][y].parent = null;
+			      grid[x][y].pos = {};
+
 			      grid[x][y].pos.x = x;
 			      grid[x][y].pos.y = y;
 		      }
@@ -16,12 +18,16 @@ init: function(matrizDesierto, matrizCactus, grid){
 
 
       },
-search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
+buscar: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 		astar.init(matrizDesierto, matrizCactus, grid);
 
 		var listaAbierta = [];
 		var listaCerrada = [];
-		listaAbierta.push(start);
+		listaAbierta.push(inicio);
+				console.log(inicio);
+				console.log(fin);
+
+
 
 		while(listaAbierta.length > 0){
 			var indMasBajo = 0;
@@ -31,31 +37,38 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 					indMasBajo = i;
 
 			}
+
+
 			var nodoActual = listaAbierta[indMasBajo];
+			console.log(nodoActual);
 			if (nodoActual.pos.x == fin.pos.x && nodoActual.pos.y == fin.pos.y){
 				var act = nodoActual;
 				var ret = [];
+				console.log(nodoActual);
+				console.log(nodoActual.parent);
 				while(act.parent){
 					if( act.pos.y - act.parent.pos.y == 1 && act.pos.x - act.parent.pos.x == 0)
-						ret.push(2);
-					else if (act.pos.y - act.parent.pos.y == -1 && act.pos.x - act.parent.pos.x == 0)
-						ret.push(0);
-					else if (act.pos.y - act.parent.pos.y == 0 && act.pos.x - act.parent.pos.x == 1)
 						ret.push(1);
-					else if (act.pos.y - act.parent.pos.y == 0 && act.pos.x - act.parent.pos.x == -1)
+					else if (act.pos.y - act.parent.pos.y == -1 && act.pos.x - act.parent.pos.x == 0)
 						ret.push(3);
+					else if (act.pos.y - act.parent.pos.y == 0 && act.pos.x - act.parent.pos.x == 1)
+						ret.push(2);
+					else if (act.pos.y - act.parent.pos.y == 0 && act.pos.x - act.parent.pos.x == -1)
+						ret.push(0);
 
 
 
 					act = act.parent;
 				}
+
+				console.log(ret);
 				return ret.reverse();	
 
 			}
-
 			listaAbierta.splice(indMasBajo,1);
-			listaCerrada.push(act);
-			var vecinos = astar.vecinos(act, matrizDesierto, matrizCactus);
+			listaCerrada.push(nodoActual);
+
+			var vecinos = astar.vecinos(grid,nodoActual, matrizDesierto, matrizCactus);
 
 			for(var i = 0; i<vecinos.length;i++){
 				var vecino = vecinos[i];
@@ -65,7 +78,7 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 
 
 
-				var gScore = act.g + 1;
+				var gScore = nodoActual.g + 1;
 				var gMejor = false;
 
 
@@ -83,7 +96,7 @@ search: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 
 				if(gMejor){
 
-					vecino.parent = act;
+					vecino.parent = nodoActual;
 					vecino.g = gScore;
 					vecino.f = vecino.g + vecino.h;
 					vecino.debug = "F: " + vecino.f + "<br />G: " + vecino.g + "<br />H: " + vecino.h;
@@ -125,10 +138,15 @@ vecinos: function(grid,nodo, matrizDesierto, matrizCactus){
 
 		 switch(matrizDesierto[x*20+y]){
 			 case 0:
-				 if(matrizCactus[x+1][y]!=2 && x<20)
+				 if( x<19 &&matrizCactus[x+1][y] !=2 ){
 					 ret.push(grid[x+1][y]);
-				 if(matrizCactus[x-1][y]!=2 && x>0)
+				 }
+				 if(x>0&&matrizCactus[x-1][y] !=2){
 					 ret.push(grid[x-1][y]);
+				 }
+
+
+
 				 if(matrizCactus[x][y-1]!=2)
 					 ret.push(grid[x][y-1]);
 				 if(matrizCactus[x][y+1]!=2)
@@ -236,7 +254,7 @@ vecinos: function(grid,nodo, matrizDesierto, matrizCactus){
 
 		 }
 
-
+return ret;
 
 	 }
 
