@@ -19,10 +19,10 @@
 <body>
 
 
-<div align="center">
+<div align="center" id = "juegazo">
 <script type="text/javascript">
 
-var game = new Phaser.Game(1024, 900, Phaser.AUTO, '', {preload:preload, create:create, update:update});
+var game = new Phaser.Game(1024, 900, Phaser.AUTO, 'juegazo', {preload:preload, create:create, update:update});
 
 var MAX_CACTUS = 3;
 var contadorCactus = 0;
@@ -30,6 +30,7 @@ var timer;
 var timer2;
 var total = 0;
 var scoreText;
+	var  velocidadTimer2 = 500;
 
 var ruta = [];
 
@@ -165,7 +166,7 @@ game.physics.startSystem(Phaser.Physics.ARCADE);
 
 timer2 = game.time.create(false);
 
-timer2.loop(500, moverBicho, this);
+timer2.loop(velocidadTimer2, moverBicho, this);
 timer2.start();
 // A5rojo : bucle que crea el laberinto 
 desierto = game.add.group();
@@ -246,7 +247,6 @@ var cactusGUI3 = game.add.sprite(930,200,'cactusGUI');
 cactusGUI3.scale.setTo(0.5,0.5);
 
 // Para acabar
-//var gameover = game.add.sprite(290,290,'gameover');
 
 ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 
@@ -270,25 +270,25 @@ var sig = ruta.shift();
 
 switch(sig){
 case 0:
-game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y-35,3000,500);
+game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y-35,30000,velocidadTimer2);
 posRel.y--;
 console.log('norte');
 
 break;
 case 1:
-game.physics.arcade.moveToXY(alien, alien.position.x+35,alien.position.y,3000,500);
+game.physics.arcade.moveToXY(alien, alien.position.x+35,alien.position.y,30000,velocidadTimer2);
 console.log('este');
 
 posRel.x++;
 break;
 case 2:
-game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y+35,3000,500);
+game.physics.arcade.moveToXY(alien, alien.position.x,alien.position.y+35,30000,velocidadTimer2);
 posRel.y++;
 console.log('sur');
 
 break;
 case 3:
-game.physics.arcade.moveToXY(alien, alien.position.x-35,alien.position.y,3000,500);
+game.physics.arcade.moveToXY(alien, alien.position.x-35,alien.position.y,30000,velocidadTimer2);
 posRel.x--;
 console.log('oueste');
 
@@ -296,9 +296,10 @@ break;
 
 
 }
-
-
-
+if (total%100==0){
+	velocidadTimer2*=0.8;
+	timer2.loop(velocidadTimer2*0.8, moverBicho, this);
+}
 
 
 
@@ -315,7 +316,15 @@ alienbailon.animations.play('baile');
 //desierto.frame = 3;
 
 
+if (inicio.pos.x + posRel.y == fin.pos.x && inicio.pos.y + posRel.x == fin.pos.y) {
+var gameover = game.add.sprite(290,290,'gameover');
 
+
+
+
+
+	timer.stop();
+};
 
 
 
