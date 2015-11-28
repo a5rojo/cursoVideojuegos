@@ -264,9 +264,9 @@ function updateCounter() {
 
 }
 
-function moverBicho(){
+function moverBicho(timer){
 
-var sig = ruta.shift();
+
 
 switch(sig){
 case 0:
@@ -296,10 +296,7 @@ break;
 
 
 }
-if (total%100==0){
-	velocidadTimer2*=0.8;
-	timer2.loop(velocidadTimer2*0.8, moverBicho, this);
-}
+
 
 
 
@@ -322,7 +319,7 @@ var gameover = game.add.sprite(290,290,'gameover');
 
 
 
-
+alien.kill();
 	timer.stop();
 };
 
