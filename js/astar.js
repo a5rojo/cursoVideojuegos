@@ -133,12 +133,12 @@ vecinos: function(grid,nodo, matrizDesierto, matrizCactus){
 
 		 switch(matrizDesierto[x*20+y]){
 			 case 0:
-				 if( x<19 &&matrizCactus[x+1][y] !=2 ){
+				 if( x<19 &&matrizCactus[x+1][y] !=2 )
 					 ret.push(grid[x+1][y]);
-				 }
-				 if(x>0&&matrizCactus[x-1][y] !=2){
+				 
+				 if(x>0&&matrizCactus[x-1][y] !=2)
 					 ret.push(grid[x-1][y]);
-				 }
+				 
 
 
 

@@ -17,7 +17,8 @@
 
 var game = new Phaser.Game(1024, 900, Phaser.AUTO, '', {preload:preload, create:create, update:update});
 
-
+var MAX_CACTUS = 3;
+var contadorCactus = 0;
 var timer;
 var total = 0;
 var scoreText;
@@ -63,6 +64,7 @@ grid[z1][z2] = {};
 
 }
 
+var listaCactus=[];
 var macetas;
 
 // A5rojo : matriz con las posiciones de los .pngs del laberinto
@@ -100,7 +102,7 @@ var matrizCactus = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
 					[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
 					[0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0],
 					[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -124,7 +126,7 @@ game.load.image('cactusI', 'assets/cactusInv.png');
 game.load.image('salida', 'assets/nave.png');
 game.load.image('fin', 'assets/navePiloto.png');
 //game.load.image('nave', 'assets/nave.png');
-
+game.load.spritesheet('macetaCactus', 'assets/MacetaCactus1.png' ,35,35);
 
 // A5rojo : cargamos el alien bailon
 game.load.spritesheet( 'alienbailon','assets/BackupOrig/alien.png',70,96 );
@@ -157,7 +159,14 @@ for(var i=0; i<filas;i++)
 		var casilla = desierto.create(35+j*35,35+i*35, 'desierto',matrizDesierto[j+i*columnas] );
 		if (matrizCactus[i][j]==1) {
 
-			macetas.create(35+j*35,35+i*35, 'maceta');
+			var maceta = macetas.create(35+j*35,35+i*35, 'macetaCactus', 0);
+			maceta.inputEnabled = true;
+			maceta.input.useHandCursor = true;
+			maceta.events.onInputDown.add(ponerCactus, this);
+			maceta.animations.add('cactus', [1,2],5,true);
+			maceta.animations.currentFrame.index=0;
+			maceta.animations.currentFrame.x = 0;
+
 //macetas.create(0,0,'maceta');
 		};
 	}
@@ -240,6 +249,8 @@ game.add.sprite(px,py,'alien');
 
 
 }
+
+
 }
 
 function updateCounter() {
@@ -252,11 +263,22 @@ function update(){
 
 // A5rojo : actualizamos el tiempo
 scoreText.text = 'score time : ' + total;
-
 //alien.frame = 2;
 alienbailon.animations.play('baile');
 //desierto.frame = 3;
 
+}
+
+function ponerCactus(sprite, event){
+	if (listaCactus.length < 3)
+	{
+		sprite.animations.play('cactus');
+
+
+	}
+
+
+	
 }
 
 </script>
