@@ -24,8 +24,7 @@ buscar: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 		var listaAbierta = [];
 		var listaCerrada = [];
 		listaAbierta.push(inicio);
-				console.log(inicio);
-				console.log(fin);
+				
 
 
 
@@ -40,12 +39,9 @@ buscar: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 
 
 			var nodoActual = listaAbierta[indMasBajo];
-			console.log(nodoActual);
 			if (nodoActual.pos.x == fin.pos.x && nodoActual.pos.y == fin.pos.y){
 				var act = nodoActual;
 				var ret = [];
-				console.log(nodoActual);
-				console.log(nodoActual.parent);
 				while(act.parent){
 					if( act.pos.y - act.parent.pos.y == 1 && act.pos.x - act.parent.pos.x == 0)
 						ret.push(1);
@@ -61,7 +57,6 @@ buscar: function(matrizDesierto, matrizCactus, grid, inicio, fin){
 					act = act.parent;
 				}
 
-				console.log(ret);
 				return ret.reverse();	
 
 			}
