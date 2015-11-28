@@ -23,6 +23,7 @@ var filas =20;
 var columnas = 20;
 var alien;
 var desierto;
+// A5rojo : matriz con las posiciones de los .pngs del laberinto
 var matrizDesierto = 	[7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8,
 			 1,11,4,8,14,7,6,8,14,1,10,9,10,9,10,9,1,7,4,9,
 			 10,2,9,10,9,3,8,10,9,3,2,2,2,2,8,7,5,1,1,14,
@@ -57,28 +58,35 @@ game.load.image('sinbordes','assets/sinborde.png');
 game.load.image('cactusGUI', 'assets/BackupOrig/cactus.png');
 game.load.image('cactusI', 'assets/cactusInv.png');
 
-
-game.load.image('nave', 'assets/nave.png');
+// A5rojo : cargamos los assets de la nave que indica cual es el final o objetivo del juego y el asset de la nave 
+// con el piloto que es cuando has perdido
+game.load.image('salida', 'assets/nave.png');
+game.load.image('fin', 'assets/navePiloto.png');
+//game.load.image('nave', 'assets/nave.png');
 
 game.load.spritesheet('alien', 'assets/alien.png',25.5,35,9 );
 game.load.spritesheet('desierto', 'assets/desierto.png', 35, 35);
 
+
 }
 
 function create(){
-//
-desierto = game.add.group();
-for(var i=0; i<filas;i++){
-for(var j = 0;j<columnas;j++){
-var casilla = desierto.create(35+j*35,35+i*35, 'desierto',matrizDesierto[j+i*columnas] );
 
+// A5rojo : bucle que crea el laberinto 
+desierto = game.add.group();
+for(var i=0; i<filas;i++)
+{
+	for(var j = 0;j<columnas;j++)
+	{
+		var casilla = desierto.create(35+j*35,35+i*35, 'desierto',matrizDesierto[j+i*columnas] );
+	}
 }
-}
+
+
 
 var alien = game.add.sprite(355,35,'alien');
 
 // a5rojo : añado y escalo la gui derecha
-
 for (var i = 0; i < 12; i++)
 {
 	var derechaGUI21 = game.add.sprite(960,i*64,'bordeDerecho');
@@ -95,7 +103,7 @@ for (var i = 0; i < 12; i++)
 }
 
 
-
+var salida = game.add.sprite(385,710,'salida');
 //alien = game.add.sprite(0,0,'alien');
 //alien.frame=4;
 
