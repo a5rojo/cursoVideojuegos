@@ -5,7 +5,7 @@
 <title> </title>
 
 <script type="text/javascript" src="js/phaser.min.js"></script>
-
+<script type="text/javascript" src="js/astar.js"></script>
 <style type="text/css">
         body {
             margin: 0;
@@ -18,11 +18,44 @@
 var game = new Phaser.Game(1024, 900, Phaser.AUTO, '', {preload:preload, create:create, update:update});
 
 
-
+var ruta = [];
 var filas =20;
 var columnas = 20;
 var alien;
 var desierto;
+
+var inicio= {};
+
+inicio.f = 0;
+			      inicio.g = 0;
+			      inicio.h = 0;
+			      inicio.debug = "";
+			      inicio.parent = null;
+
+inicio.pos = {};
+inicio.pos.x=0;
+inicio.pos.y=9;
+
+var fin={};
+fin.g = 0;
+                              fin.h = 0;
+                              fin.debug = "";
+                              fin.parent = null;
+
+fin.pos={};
+fin.pos.x=19;
+fin.pos.y = 10;
+var grid =[];
+for (var z1 = 0; z1<20;z1++){
+grid[z1]=[];
+
+for(var z2 = 0;z2<20;z2++){
+grid[z1][z2] = {};
+
+}
+
+}
+
 // A5rojo : matriz con las posiciones de los .pngs del laberinto
 var matrizDesierto = 	[7,2,2,2,2,2,4,2,2,0,8,7,8,7,8,7,8,11,2,8,
 			 1,11,4,8,14,7,6,8,14,1,10,9,10,9,10,9,1,7,4,9,
@@ -145,6 +178,31 @@ cactusGUI2.scale.setTo(0.5,0.5);
 var cactusGUI3 = game.add.sprite(930,200,'cactusGUI');
 cactusGUI3.scale.setTo(0.5,0.5);
 
+ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
+
+
+var px=355;
+var py=35;
+for (var z3=0; z3<ruta.length;z3++){
+switch(ruta[z3]){
+case 0:
+py=py-35;
+break;
+case 1:
+px=px+35;
+break;
+case 2:
+py=py+35;
+break;
+case 3:
+px=px-35;
+break;
+
+}
+game.add.sprite(px,py,'alien');
+
+
+}
 }
 
 function update(){
