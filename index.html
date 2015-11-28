@@ -4,15 +4,22 @@
 <meta charset="UTF-8" />
 <title> </title>
 
+
 <script type="text/javascript" src="js/phaser.min.js"></script>
 <script type="text/javascript" src="js/astar.js"></script>
+
+
 <style type="text/css">
         body {
+
             margin: 0;
         }
     </style>
 </head>
 <body>
+
+
+<div align="center">
 <script type="text/javascript">
 
 var game = new Phaser.Game(1024, 900, Phaser.AUTO, '', {preload:preload, create:create, update:update});
@@ -127,6 +134,9 @@ game.load.image('sinbordes','assets/sinborde.png');
 game.load.image('cactusGUI', 'assets/BackupOrig/cactus.png');
 game.load.image('cactusI', 'assets/cactusInv.png');
 
+// A5rojo : cargo el asset del game over
+game.load.image('gameover', 'assets/GameOver.png');
+
 // A5rojo : cargamos los assets de la nave que indica cual es el final o objetivo del juego y el asset de la nave 
 // con el piloto que es cuando has perdido
 game.load.image('salida', 'assets/nave.png');
@@ -234,6 +244,9 @@ cactusGUI2.scale.setTo(0.5,0.5);
 
 var cactusGUI3 = game.add.sprite(930,200,'cactusGUI');
 cactusGUI3.scale.setTo(0.5,0.5);
+
+// Para acabar
+//var gameover = game.add.sprite(290,290,'gameover');
 
 ruta = astar.buscar(matrizDesierto, matrizCactus,grid, inicio, fin);
 
@@ -367,5 +380,8 @@ posRel.x=0;
 }
 
 </script>
+
+
+</div>
 </body>
 </html>
